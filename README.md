@@ -6,7 +6,9 @@ https://surfer.nmr.mgh.harvard.edu/fswiki/infantFS
 
 ## Installation
 
-FreeSurfer is _not_ free software ("Free" as in "freedom").
+FreeSurfer and FSL are _not_ free software ("Free" as in "freedom").
+Briefly, you may not use this software for financial gain.
+
 You must add a FreeSurfer license.
 Get one for free from https://surfer.nmr.mgh.harvard.edu/fswiki/License
 
