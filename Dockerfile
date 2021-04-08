@@ -1,6 +1,6 @@
 FROM fnndsc/infant-freesurfer:dev-4a14499-unlicensed
 
-RUN yum install -y -q python3 perl
+RUN yum install -y -q python3
 
 WORKDIR /usr/local/src
 
