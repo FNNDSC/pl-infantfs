@@ -23,7 +23,7 @@ docker rm unlicensed-freesurfer
 
 ## Usage
 
-The required input are a single NIFTI (`*.nii`, `*.nii.gz`) file and the subject's age in months.
+The required input are a single NIFTI (`*.nii.gz`) file and the subject's age in months.
 
 Traditional `infant_recon_all`-like usage is supported.
 
