@@ -27,11 +27,18 @@ docker commit unlicensed-freesurfer pl-infantfs:7.1.1.1
 docker rm unlicensed-freesurfer
 ```
 
-_ChRIS_ admins may find it useful to push it to a private container registry.
+_ChRIS_ admins may find it useful to push it to a private container registry and a private ChRIS store.
 
 ```bash
 docker tag pl-infantfs:7.1.1.1 rc-gitlab.chboston.org:4567/fnndsc/pl-infantfs:7.1.1.1
 docker push rc-gitlab.chboston.org:4567/fnndsc/pl-infantfs:7.1.1.1
+
+docker run --rm rc-gitlab.chboston.org:4567/fnndsc/pl-infantfs:7.1.1.1 infantfs --json > /tmp/infantfs.json
+http -a chrisadmin:chris1234 -f POST http://chris-store.tch.harvard.edu/api/v1/plugins/ \
+    dock_image=rc-gitlab.chboston.org:4567/fnndsc/pl-infantfs:7.1.1.1 \
+    descriptor_file@/tmp/infantfs.json \
+    public_repo=https://github.com/FNNDSC/pl-infantfs \
+    name=pl-infantfs
 ```
 
 ## Usage
