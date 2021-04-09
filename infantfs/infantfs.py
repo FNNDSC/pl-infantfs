@@ -153,7 +153,11 @@ class Infantfs(ChrisApp):
             cmd += ['--usegpu']
 
         logging.info(' '.join(cmd))
-        sp.run(cmd, check=True)
+
+        try:
+            sp.run(cmd, check=True)
+        except sp.CalledProcessError as e:
+            sys.exit(e.returncode)
 
     def show_man_page(self):
         """
