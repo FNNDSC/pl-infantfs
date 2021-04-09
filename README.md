@@ -9,16 +9,29 @@ https://surfer.nmr.mgh.harvard.edu/fswiki/infantFS
 FreeSurfer and FSL are _not_ free software ("Free" as in "freedom").
 Briefly, you may not use this software for financial gain.
 
+We are not allowed to share a complete version of Infant FreeSurfer on DockerHub.
+Instead, we only provide an unlicensed version.
+
+https://hub.docker.com/r/fnndsc/pl-infantfs
+
 You must add a FreeSurfer license.
 Get one for free from https://surfer.nmr.mgh.harvard.edu/fswiki/License
 
 Then add it to the container
 
 ```bash
+docker pull fnndsc/pl-infantfs:7.1.1.1-unlicensed
 docker create --name=unlicensed-freesurfer fnndsc/pl-infantfs:7.1.1.1-unlicensed
 docker cp license.txt unlicensed-freesurfer:/opt/freesurfer/.license
-docker commit unlicensed-freesurfer registry.internal/fnndsc/pl-infantfs:7.1.1.1
+docker commit unlicensed-freesurfer pl-infantfs:7.1.1.1
 docker rm unlicensed-freesurfer
+```
+
+_ChRIS_ admins may find it useful to push it to a private container registry.
+
+```bash
+docker tag pl-infantfs:7.1.1.1 rc-gitlab.chboston.org:4567/fnndsc/pl-infantfs:7.1.1.1
+docker push rc-gitlab.chboston.org:4567/fnndsc/pl-infantfs:7.1.1.1
 ```
 
 ## Usage
@@ -31,7 +44,7 @@ Traditional `infant_recon_all`-like usage is supported.
 mkdir -p incoming/123456
 cp t1.nii.gz incoming/123456/mprage.nii.gz
 mkdir outgoing
-singularity exec docker://registry.internal/fnndsc/pl-infantfs:7.1.1.1 --subject 123456 --age 6 incoming/ outgoing/
+singularity exec docker-daemon://pl-infantfs:7.1.1.1 --subject 123456 --age 6 incoming/ outgoing/
 ```
 
 Alternatively, use `--inputPathFilter` to specify the input file by a glob pattern.
@@ -42,5 +55,5 @@ The directory structure will be created automatically.
 ```bash
 mkdir incoming outgoing
 cp t1.nii.gz incoming
-singularity exec docker://registry.internal/fnndsc/pl-infantfs:7.1.1.1 --age 6 incoming/ outgoing/
+singularity exec docker-daemon://pl-infantfs:7.1.1.1 --age 6 incoming/ outgoing/
 ```
