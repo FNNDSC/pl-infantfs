@@ -142,6 +142,8 @@ class Infantfs(ChrisApp):
             print(Gstr_title, flush=True)
             logging.debug('Found input file: %s', input_file)
 
+        os.environ['SUBJECTS_DIR'] = options.outputdir
+
         cmd = [
             'infant_recon_all',
             '--outdir', options.outputdir,
