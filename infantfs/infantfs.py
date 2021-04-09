@@ -91,9 +91,9 @@ class Infantfs(ChrisApp):
         self.add_argument(
             '-p', '--inputPathFilter',
             dest='inputPathFilter',
-            help='Alternative to --subject, easier to use. Specify a file pattern '
-                 'relative to the input directory which identifies the subject '
-                 'that is to be processed.',
+            help='Specify a file pattern relative to the input directory '
+                 'which identifies the subject that is to be processed. '
+                 'Alternative to --subject, easier to use.',
             default='*.nii.gz',
             type=str,
             optional=True
