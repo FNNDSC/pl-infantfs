@@ -6,6 +6,9 @@ https://surfer.nmr.mgh.harvard.edu/fswiki/infantFS
 
 ## Installation
 
+WARNING: the publicly provided copies of this software on _Github_, _Docker Hub_,
+and _chrisstore.co_ **do not work** as-is!
+
 FreeSurfer and FSL are _not_ free software ("Free" as in "freedom").
 Briefly, you may not use this software for financial gain.
 
@@ -17,7 +20,7 @@ https://hub.docker.com/r/fnndsc/pl-infantfs
 You must add a FreeSurfer license.
 Get one for free from https://surfer.nmr.mgh.harvard.edu/fswiki/License
 
-Then add it to the container
+Next, create a new container image which includes the license.
 
 ```bash
 docker pull fnndsc/pl-infantfs:7.1.1.1-unlicensed
@@ -27,9 +30,15 @@ docker commit unlicensed-freesurfer pl-infantfs:7.1.1.1
 docker rm unlicensed-freesurfer
 ```
 
-_ChRIS_ admins may find it useful to push it to a private container registry and a private ChRIS store.
+To register `pl-infantfs` in _ChRIS_ you must upload it manually to a _private_
+instance of the *ChRIS_store*.
+*ChRIS* admins may also find it useful to first push `pl-infantfs` to a _private_
+container registry.
 
 ```bash
+# Example: A private container registry is running at rc-gitlab.chboston.org:4567
+#          A private ChRIS_store is running at http://chris-store.tch.harvard.edu/
+
 docker tag pl-infantfs:7.1.1.1 rc-gitlab.chboston.org:4567/fnndsc/pl-infantfs:7.1.1.1
 docker push rc-gitlab.chboston.org:4567/fnndsc/pl-infantfs:7.1.1.1
 
