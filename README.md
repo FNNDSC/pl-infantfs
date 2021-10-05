@@ -1,6 +1,6 @@
 # pl-infantfs
 
-A _ChRIS_ plugin for the `infant_recon_all` command from Infant FreeSurfer.
+A _ChRIS_ plugin wrapping the `infant_recon_all` command from Infant FreeSurfer.
 
 https://surfer.nmr.mgh.harvard.edu/fswiki/infantFS
 
@@ -54,13 +54,25 @@ http -a chrisadmin:chris1234 -f POST http://chris-store.tch.harvard.edu/api/v1/p
 
 The required input are a single NIFTI (`*.nii.gz`) file and the subject's age in months.
 
+### Using Singularity
+
+[Singularity](https://singularity.hpcng.org/) is the recommended container runtime, because
+it handles users and bind paths for you. The first step is to rebuild the OCI image as a
+Singularity Image Format (.SIF) file.
+
+```bash
+singularity build infantfs.sif docker-daemon://pl-infantfs:7.1.1.1 
+```
+
+### Example
+
 Traditional `infant_recon_all`-like usage is supported.
 
 ```bash
 mkdir -p incoming/123456
 cp t1.nii.gz incoming/123456/mprage.nii.gz
 mkdir outgoing
-singularity exec docker-daemon://pl-infantfs:7.1.1.1 --subject 123456 --age 6 incoming/ outgoing/
+singularity exec infantfs.sif --subject 123456 --age 6 incoming/ outgoing/
 ```
 
 Alternatively, use `--inputPathFilter` to specify the input file by a glob pattern.
@@ -71,5 +83,21 @@ The directory structure will be created automatically.
 ```bash
 mkdir incoming outgoing
 cp t1.nii.gz incoming
-singularity exec docker-daemon://pl-infantfs:7.1.1.1 --age 6 incoming/ outgoing/
+singularity exec infantfs.sif --age 6 incoming/ outgoing/
 ```
+
+### Using _ChRIS_
+
+`pl-infantfs` is a [_ChRIS_](https://chrisproject.org/) _ds_ plugin. FIrst, ask your
+_ChRIS_ admin to install `pl-infantfs` on your instance of _ChRIS_. Once the plugin
+is registered, you will be able to find and run it.
+
+The parent node should supply `pl-infantfs` with a single `*.nii.gz` file in the
+top-level directory. The only required option is `--age`.
+
+NOTE: depending on container orchestration, there will be a 5–10 minute delay at the
+start of the plugin instance's "compute" phase, during which the remote compute
+environment is pulling the 14GB compressed container image for `pl-infantfs`.
+
+TIP: You can parallelize `pl-infantfs` horizontally across subjects by doing a
+feed-split operation using a _ts_ plugin.
