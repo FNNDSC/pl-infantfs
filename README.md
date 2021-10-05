@@ -95,7 +95,7 @@ is registered, you will be able to find and run it.
 The parent node should supply `pl-infantfs` with a single `*.nii.gz` file in the
 top-level directory. The only required option is `--age`.
 
-NOTE: depending on container orchestration, there will be a 5–10 minute delay at the
+NOTE: depending on container orchestration, there will be a 5--10 minute delay at the
 start of the plugin instance's "compute" phase, during which the remote compute
 environment is pulling the 14GB compressed container image for `pl-infantfs`.
 
