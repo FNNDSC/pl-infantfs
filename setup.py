@@ -6,7 +6,7 @@ with open(path.join(path.dirname(path.abspath(__file__)), 'README.md')) as f:
 
 setup(
     name             = 'infantfs',
-    version          = '7.1.1.1',
+    version          = '7.1.1.3',
     description      = 'The infant_recon_all command from Infant FreeSurfer',
     long_description = readme,
     long_description_content_type='text/markdown',
